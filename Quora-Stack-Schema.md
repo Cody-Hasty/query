@@ -3,7 +3,7 @@
 **Users:**
 
 | Variable Name  |    Type     |  Parameters |
-|----------|:-------------:|------:|------:|
+|----------|:-------------:|------:|
 | id | integer | unique, not null |
 | email | string | unique, not null |
 | username | string | not null |
