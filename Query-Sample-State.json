@@ -1,0 +1,29 @@
+{
+    entities: {
+        users: {
+
+        },
+        posts: {
+
+        },
+        comments: {
+
+        },
+        likes: {
+
+        },
+        shares: {
+
+        }
+    },
+    ui: {
+        page: 
+        sorting: 
+    },
+    errors: {
+        login: [],
+        postForm: [],
+
+    },
+    session: { currentUserId: }
+}
