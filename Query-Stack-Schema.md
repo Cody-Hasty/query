@@ -28,7 +28,7 @@
 | Variable Name  |    Type     |  Parameters |
 |----------|:-------------:|------:|
 | id | integer | unique, not null |
-| body | string | not null |
+| body | string | none |
 | *post_id* | integer | not null |
 | *author_id* | integer | not null |
 
@@ -45,7 +45,7 @@
 | Variable Name  |    Type     |  Parameters |
 |----------|:-------------:|------:|
 | id | integer | unique, not null |
-| *author_id* | integer | not null |
+| *post_id* | integer | not null |
 | *user_id* | integer | not null |
 
 ***
