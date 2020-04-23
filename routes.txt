@@ -1,0 +1,76 @@
+Frontend:
+    Components:
+        App
+            NavBar
+            Root --> rendered through the routes below by the App component
+            Footer
+            
+    /
+        Homepage
+
+    /login
+        SessionForm
+
+    /signup
+        SessionForm
+
+    /frontpage
+        PostIndex
+            PostIndexItem
+
+    /users/:user_id
+        ProfileComponent
+        PostIndex
+            PostIndexItem
+
+    /posts/new
+        PostForm
+
+    /posts/:post_id
+        PostShow
+
+    /posts/:post_id/edit
+        PostForm
+
+-----------------------------------------------------------------------------------------
+
+Backend: 
+    users
+        GET /api/users
+        POST /api/users
+        --> display users, new users
+
+    session
+        POST /api/users
+        DELETE /api/session
+        --> login, logout
+
+    posts
+        GET /api/posts
+        GET /api/posts/:id
+        POST /api/posts
+        PATCH /api/post/:id
+        DELETE /api/post/:id
+        --> show all posts, show one post, create new post, edit post, delete post
+
+    comments
+        GET /api/:post_id/comments
+        POST /api/:post_id/comments
+        PATCH /api/:post_id/comments/:id
+        DELETE /api/:post_id/comments/:id
+        --> show all comments, make new comment, edit comment, delete comment
+            (cannot view only one comment, all show at once - by design)
+
+    likes
+        POST /api/:post_id/likes
+        DELETE /api/:post_id/likes
+        --> "make" a like, "delete" a like
+
+    shares
+        POST /api/:post_id/shares
+        DELETE /api/:post_id/shares
+        --> create a share, delete a share
+            (I forsee future problems implementing this share functionality to 
+                create new posts for the current user. New routes or limitations may
+                need to be added to these shared posts so that the user cannot modify
+                the original post when they repost)
