@@ -1,53 +1,61 @@
 class Api::UsersController < ApplicationController
-
-    def new
-        @user = User.new
-        # is redirect necessary when combining with frontend?
+  # skip_before_action :verify_authenticity_token
+  
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      login!(@user)
+      render :show
+    else
+      render json: @user.errors.full_messages, status: 401
     end
+  end
+  
+  def show
+    @user = User.find(params[:id])
+  end
+  
+  def index
+    @users = User.all
+  end
 
-    def create
-        @user = User.new(user_params)
-        if @user.save
-            login!(@user)
-        else
-            # flash.now[:errors] = @user.errors.full_messages
-            # must refresh self on how to display to frontend
-        end
+  # already handled by update, should update routes
+  # def edit
+  #   @user = User.find(params[:id])
+  #   if @user && @user.update_attributes(user_params)
+  #     render :show
+  #   elsif !@user
+  #     render json: ['User not found'], status: 401
+  #   else
+  #     render json: @user.errors.full_messages, status: 401
+  #   end
+  # end
+
+  def update
+    @user = User.find(params[:id])
+    if @user && @user.update_attributes(user_params)
+      render :show
+    elsif !@user
+      render json: ['User not found'], status: 404
+    else
+      render json: @user.errors.full_messages, status: 401
     end
-
-    def show
-        @user = User.find(params[:id])
-        # once again, does this need redirect?
-        # render json: @user.errors.full_messages, status: 404
+  end
+  
+  
+  def destroy
+    @user = User.find(params[:id])
+    if @user
+      @user.destroy
+      render :show
+    else
+      render json: ['User not found'], status: 404
     end
-
-    def index
-        @users = User.all
-    end
-
-    def edit
-        @user = User.find(params[:id])
-        # redirect?
-    end
-
-    def update
-        @user = User.find(params[:id])
-        # render json: @user.errors.full_messages, status: 422
-    end
-
-    def destroy
-        @user = User.find(params[:id])
-         # render json: @user.errors.full_messages, status: 404
-    end
-
-    # def search
-    #     @users = User.where("username LIKE '%#{params[:query]}%'")
-    # end
-
-    private
-    
-    def user_params
-        params.require(:user).permit(:email, :password)
-    end
-
+  end
+  
+  private
+  
+  def user_params
+    params.require(:user).permit(:username, :email, :password, :credentials)
+  end
 end
