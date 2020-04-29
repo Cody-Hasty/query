@@ -1,32 +1,14 @@
-
-// part 4 (skeleton, just for debugging)
-
-// import React from 'react';
-
-// class Signup extends React.Component {
-//     render () {
-//         return (
-//             <div></div>
-//         );
-//     }
-// };
-
-// export default Signup;
-
-
-
-// part 5
-
 import React from 'react';
 
 class Signup extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            username: '',
             email: '',
             password: '',
             credentials: '',
+            fname: '',
+            lname: '',
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -49,13 +31,20 @@ class Signup extends React.Component {
             <div className="session-form">
                 <h2>Sign Up!</h2>
                 <form>
-                    <label>Username: 
+                    <label>First Name: 
                         <input 
                             type="text" 
-                            value={this.state.username}
-                            onChange={this.handleInput('username')}
+                            value={this.state.fname}
+                            onChange={this.handleInput('fname')}
                         />
                     </label>
+                    <label>Last Name:
+                        <input
+                            type="text"
+                            value={this.state.lname}
+                            onChange={this.handleInput('lname')}
+                        />
+                    </label>                    
                     <label>Email: 
                         <input
                             type="text"
@@ -73,6 +62,7 @@ class Signup extends React.Component {
                     <label>Credentials:
                         <input
                             type="text"
+                            placeholder="optional"
                             value={this.state.credentials}
                             onChange={this.handleInput('credentials')}
                         />

@@ -1,5 +1,4 @@
 class Api::UsersController < ApplicationController
-  # skip_before_action :verify_authenticity_token
   
   def create
     @user = User.new(user_params)
@@ -7,7 +6,7 @@ class Api::UsersController < ApplicationController
       login!(@user)
       render :show
     else
-      render json: @user.errors.full_messages, status: 401
+      render json: @user.errors.full_messages
     end
   end
   
@@ -36,9 +35,9 @@ class Api::UsersController < ApplicationController
     if @user && @user.update_attributes(user_params)
       render :show
     elsif !@user
-      render json: ['User not found'], status: 404
+      render json: ['User not found']
     else
-      render json: @user.errors.full_messages, status: 401
+      render json: @user.errors.full_messages
     end
   end
   
@@ -49,13 +48,13 @@ class Api::UsersController < ApplicationController
       @user.destroy
       render :show
     else
-      render json: ['User not found'], status: 404
+      render json: ['User not found']
     end
   end
   
   private
   
   def user_params
-    params.require(:user).permit(:username, :email, :password, :credentials)
+    params.require(:user).permit(:email, :password, :credentials, :fname, :lname)
   end
 end

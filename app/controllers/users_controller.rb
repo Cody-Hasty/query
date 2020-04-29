@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     if @user
       render :show
     else
-      render json: @user.errors.full_messages, status: 404
+      render json: @user.errors.full_messages
     end
   end
 
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_url(@user)
     else
-      render json: @user.errors.full_messages, status: 422
+      render json: @user.errors.full_messages
     end
   end
 
@@ -49,12 +49,13 @@ class UsersController < ApplicationController
     if @user.destroy
       redirect_to users_url
     else
-      render json: @user.errors.full_messages, status: 404
+      render json: @user.errors.full_messages
     end
   end
 
   # search functionality to be added later
   # def search
+  # Username does not exist in database, change later
   #   @users = User.where("username LIKE '%#{params[:query]}%'")
   #   render json: @users
   # end
@@ -62,6 +63,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password, :credentials)
+    params.require(:user).permit(:email, :password, :credentials, :fname, :lname)
   end
 end
