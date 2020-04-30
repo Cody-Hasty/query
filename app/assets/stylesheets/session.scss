@@ -1,0 +1,25 @@
+#root, .data-reactroot, .session-box {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    background-color: white;
+}
+
+.session-box {
+    display: grid;
+    grid-template-columns: 5% 40% 10% 40% 5%;
+}
+
+.signup-form {
+    grid-column-start: 2;
+}
+
+.login-form {
+    grid-column-start: 4;
+}
+
+.hidden {
+    display: none;
+    visibility: hidden;
+}

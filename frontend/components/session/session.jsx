@@ -6,8 +6,6 @@ class Session extends React.Component {
         this.state = {
             loginEmail: '',
             loginPassword: '',
-
-
             email: '',
             password: '',            
             credentials: '',
