@@ -14,11 +14,25 @@ class Session extends React.Component {
         }
 
         this.loggingIn = true;
+        this.requiredFieldsFilled = this.requiredFieldsFilled.bind(this);
+        this.handleDemoLogin = this.handleDemoLogin.bind(this);
         this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
         this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this);
         this.handleFormTypeSubmit = this.handleFormTypeSubmit.bind(this);
         this.formDisplay = this.formDisplay.bind(this);
         this.buttonDisplay = this.buttonDisplay.bind(this);
+    }
+
+    requiredFieldsFilled() {
+        let filled = true;
+        if(this.loggingIn === true){
+            filled = this.loginEmail !=='' && this.loginPassword !== '';
+        } else {
+            filled = this.email !== '' && this.password !== '' &&
+            this.fname !== '' && this.lname !== '';
+        }
+        console.log(filled);
+        return filled;
     }
 
     handleInput(type) {
@@ -27,16 +41,29 @@ class Session extends React.Component {
         }
     }
 
+    handleDemoLogin(e) {
+        e.preventDefault();
+        this.setState({ ['loginEmail']: 'demo@demo.com'});
+        this.setState({ ['loginPassword']: '123456'});
+        this.props.login(this.state);
+    }
+
     handleLoginSubmit(e) {
         e.preventDefault();
-        this.props.login(this.state)
-        // this will be implemented later
-        // .then(() => this.props.history.push('/questions'));
+        if(this.requiredFieldsFilled()){
+            this.props.login(this.state)
+            // this will be implemented later
+            // .then(() => this.props.history.push('/questions'));
+        } else {
+            
+        }
     }
 
     handleSignUpSubmit(e) {
         e.preventDefault();
-        this.props.createNewUser(this.state)
+        if(this.requiredFieldsFilled()){
+            this.props.createNewUser(this.state)
+        }
     }
 
     handleFormTypeSubmit(e) {
@@ -48,63 +75,63 @@ class Session extends React.Component {
     formDisplay() {
         return this.loggingIn ? (
             <form className="login">
-                <h2 className="login-message">Log in!</h2>
-                <label>Email:
-                    <input
-                        type="text"
-                        value={this.state.loginEmail}
-                        onChange={this.handleInput('loginEmail')}
-                    />
-                </label>
-                <label>Password:
-                    <input
-                        type="password"
-                        value={this.state.loginPassword}
-                        onChange={this.handleInput('loginPassword')}
-                    />
-                </label>
-                <button className="login-button" onClick={this.handleLoginSubmit}>Log in</button>
+                <p className="login-message">Login</p>
+                <input
+                    type="text"
+                    placeholder="Email"
+                    value={this.state.loginEmail}
+                    onChange={this.handleInput('loginEmail')}
+                    required
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={this.state.loginPassword}
+                    onChange={this.handleInput('loginPassword')}
+                    required
+                />
+                <button className="login-button" onClick={this.handleLoginSubmit}>Login</button>
             </form>
         ) : (
             <form className="signup">
-                <h2 className="signup-message">Sign Up!</h2>
-                <label className="fname">First Name:
-                    <input
-                        type="text"
-                        value={this.state.fname}
-                        onChange={this.handleInput('fname')}
-                    />
-                </label>
-                <label className="lname">Last Name:
-                    <input
-                        type="text"
-                        value={this.state.lname}
-                        onChange={this.handleInput('lname')}
-                    />
-                </label>
-                <label>Email:
-                    <input
-                        type="text"
-                        value={this.state.email}
-                        onChange={this.handleInput('email')}
-                    />
-                </label>
-                <label>Password:
-                    <input
-                        type="password"
-                        value={this.state.password}
-                        onChange={this.handleInput('password')}
-                    />
-                </label>
-                <label>Credentials:
-                    <input
-                        type="text"
-                        placeholder="optional"
-                        value={this.state.credentials}
-                        onChange={this.handleInput('credentials')}
-                    />
-                </label>
-                <button className="signup-button" onClick={this.handleSignUpSubmit}>Sign Up</button>
+                <p className="signup-message">Signup</p>
+                <input
+                    type="text"
+                    className="fname"
+                    placeholder="First Name"
+                    value={this.state.fname}
+                    onChange={this.handleInput('fname')}
+                    required
+                />
+                <input
+                    type="text"
+                    className="lname"
+                    placeholder="Last Name"
+                    value={this.state.lname}
+                    onChange={this.handleInput('lname')}
+                    required
+                />
+                <input
+                    type="text"
+                    placeholder="Email"
+                    value={this.state.email}
+                    onChange={this.handleInput('email')}
+                    required
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={this.state.password}
+                    onChange={this.handleInput('password')}
+                    required
+                />
+                <input
+                    type="text"
+                    placeholder="Credentials (optional)"
+                    value={this.state.credentials}
+                    onChange={this.handleInput('credentials')}
+                />
+                <button className="signup-button" onClick={this.handleSignUpSubmit}>Signup</button>
             </form>
         );
     };
@@ -117,12 +144,15 @@ class Session extends React.Component {
         return (
             <div className="session-box">
                 <div className="website-title">
-                    <h1>Query</h1>
+                    <h1>Que<span>e</span>ry</h1>
                 </div>
                 <div className="slogan">
                     <p>A safe place to ask open and honest questions</p>
                 </div>
                 <div className="session-buttons-box">
+                    <button className="demo-user-login" onClick={this.handleDemoLogin}>
+                        Demo User Login
+                    </button>
                     <button className="change-login-type" onClick={this.handleFormTypeSubmit}>{this.buttonDisplay()}</button>
                 </div>
                 <div className="session-form">
