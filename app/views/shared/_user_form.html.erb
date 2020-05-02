@@ -1,0 +1,24 @@
+<form action="<%= action %>" method="POST">
+  <%= render "shared/errors", errors: flash[:errors], type: :base %>
+  <input
+    type="hidden"
+    name="authenticity_token"
+    value="<%= form_authenticity_token %>"
+  >
+  <label for="email-input">email</label>
+  <input
+    id="email-input"
+    type="text"
+    name="user[email]"
+    value="<%= user.email %>"
+  >
+    <%= render 'shared/errors', errors: flash[:errors], type: :email %>
+  <label for="password-input">Password</label>
+  <input
+    type="password"
+    name="user[password]"
+    id="password-input"
+  >
+    <%= render 'shared/errors', errors: flash[:errors], type: :password %>
+  <button class="button"><%= submit_text %></button>
+</form>

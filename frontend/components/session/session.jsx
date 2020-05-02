@@ -1,4 +1,5 @@
 import React from 'react';
+import ErrorList from './error_list';
 
 class Session extends React.Component {
     constructor(props) {
@@ -26,12 +27,12 @@ class Session extends React.Component {
     requiredFieldsFilled() {
         let filled = true;
         if(this.loggingIn === true){
-            filled = this.loginEmail !=='' && this.loginPassword !== '';
+            filled = this.state.loginEmail !== '' && this.state.loginPassword !== '';
         } else {
-            filled = this.email !== '' && this.password !== '' &&
-            this.fname !== '' && this.lname !== '';
+            filled = this.state.email !== '' && this.state.password !== '' &&
+                this.state.fname !== '' && this.state.lname !== '';
         }
-        console.log(filled);
+        // console.log(filled);
         return filled;
     }
 
@@ -43,8 +44,8 @@ class Session extends React.Component {
 
     handleDemoLogin(e) {
         e.preventDefault();
-        this.setState({ ['loginEmail']: 'demo@demo.com'});
-        this.setState({ ['loginPassword']: '123456'});
+        this.state.loginPassword = "123456"
+        this.state.loginEmail = "demo@demo.com"
         this.props.login(this.state);
     }
 
@@ -54,8 +55,6 @@ class Session extends React.Component {
             this.props.login(this.state)
             // this will be implemented later
             // .then(() => this.props.history.push('/questions'));
-        } else {
-            
         }
     }
 
@@ -158,6 +157,7 @@ class Session extends React.Component {
                 <div className="session-form">
                     {this.formDisplay()}
                 </div>
+                <ErrorList errors={this.props.errors} />
             </div>
         )
     }

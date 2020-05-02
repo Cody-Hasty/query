@@ -30,5 +30,9 @@ class ApplicationController < ActionController::Base
   def require_logged_in
       render json: ['You need to login to view this page'] unless current_user
   end
+
+  def user_params
+    params.require(:user).permit(:email, :password);
+  end
   
 end
