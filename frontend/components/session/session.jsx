@@ -1,5 +1,4 @@
 import React from 'react';
-import ErrorList from './error_list';
 
 class Session extends React.Component {
     constructor(props) {
@@ -15,25 +14,13 @@ class Session extends React.Component {
         }
 
         this.loggingIn = true;
-        this.requiredFieldsFilled = this.requiredFieldsFilled.bind(this);
+        this.errors = [];
         this.handleDemoLogin = this.handleDemoLogin.bind(this);
-        this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
-        this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.handleFormTypeSubmit = this.handleFormTypeSubmit.bind(this);
         this.formDisplay = this.formDisplay.bind(this);
         this.buttonDisplay = this.buttonDisplay.bind(this);
-    }
-
-    requiredFieldsFilled() {
-        let filled = true;
-        if(this.loggingIn === true){
-            filled = this.state.loginEmail !== '' && this.state.loginPassword !== '';
-        } else {
-            filled = this.state.email !== '' && this.state.password !== '' &&
-                this.state.fname !== '' && this.state.lname !== '';
-        }
-        // console.log(filled);
-        return filled;
+        this.errorDisplay = this.errorDisplay.bind(this);
     }
 
     handleInput(type) {
@@ -49,25 +36,45 @@ class Session extends React.Component {
         this.props.login(this.state);
     }
 
-    handleLoginSubmit(e) {
+    handleFormSubmit(e) {
         e.preventDefault();
-        if(this.requiredFieldsFilled()){
-            this.props.login(this.state)
-            // this will be implemented later
-            // .then(() => this.props.history.push('/questions'));
-        }
-    }
+        this.errors = [];
 
-    handleSignUpSubmit(e) {
-        e.preventDefault();
-        if(this.requiredFieldsFilled()){
-            this.props.createNewUser(this.state)
+        if (this.loggingIn){
+            if (this.state.loginEmail !== '' && this.state.loginPassword !== ''){
+                this.props.login(this.state)
+                // this will be implemented later
+                // .then(() => this.props.history.push('/questions'));
+                // If they are still on this page after submitting, because I 
+                // automatically redirect on sucessful login
+                this.errors.push("Invalid login")   
+            } else {
+                this.errors.push("Please fill out all required fields");
+            }
         }
+        else {
+            if (this.state.email !== '' && this.state.password !== '' &&
+                this.state.fname !== '' && this.state.lname !== '' &&
+                this.state.password.length > 5){
+                this.props.createNewUser(this.state)
+                // If they are still on this page after submitting, because I 
+                // automatically redirect on sucessful signup / login, 
+                // this would be the only other source of errors (that I know of!)
+                this.errors.push("That email address already has an account")
+            } else if (this.state.password.length < 6) {
+                this.errors.push("Please enter a password with 6 or more characters");
+            } else {
+                this.errors.push("Please fill out all required fields");
+            }
+        }
+
+        this.setState(this.state);
     }
 
     handleFormTypeSubmit(e) {
         e.preventDefault();
         this.loggingIn = !this.loggingIn;
+        this.errors = [];
         this.setState(this.state);
     }
     
@@ -89,7 +96,7 @@ class Session extends React.Component {
                     onChange={this.handleInput('loginPassword')}
                     required
                 />
-                <button className="login-button" onClick={this.handleLoginSubmit}>Login</button>
+                <button className="login-button" onClick={this.handleFormSubmit}>Login</button>
             </form>
         ) : (
             <form className="signup">
@@ -130,13 +137,17 @@ class Session extends React.Component {
                     value={this.state.credentials}
                     onChange={this.handleInput('credentials')}
                 />
-                <button className="signup-button" onClick={this.handleSignUpSubmit}>Signup</button>
+                <button className="signup-button" onClick={this.handleFormSubmit}>Signup</button>
             </form>
         );
     };
 
     buttonDisplay() {
         return this.loggingIn ? "Sign Up" : "Log In"
+    }
+
+    errorDisplay() {
+        return this.errors.map(error => <li key={error}>{error}</li>)
     }
 
     render() {
@@ -157,7 +168,9 @@ class Session extends React.Component {
                 <div className="session-form">
                     {this.formDisplay()}
                 </div>
-                <ErrorList errors={this.props.errors} />
+                <div className="session-error">
+                    {this.errorDisplay()}
+                </div>
             </div>
         )
     }
