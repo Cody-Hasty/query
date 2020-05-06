@@ -1,0 +1,24 @@
+.nav-bar {
+    position:absolute;
+    top:3%;
+    bottom:90%;
+    left:3%;
+    right:3%;
+    background-color: white;
+
+}
+
+.banner {
+    display: flex;
+    flex-direction: column;
+}
+
+.welcome {
+    text-align: right;
+    margin: 5px 15px 5px 5px;
+}
+
+.logout-button {
+    align-self: flex-end;
+    margin: 5px 15px 5px 5px;
+}

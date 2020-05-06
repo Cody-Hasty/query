@@ -43,3 +43,11 @@ body {
     display: none;
     visibility: hidden;
 }
+
+.react-error {
+    background: linear-gradient(to right, #6666ff, #0099ff, #00d100, #ff3399, #6666ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow_animation 10s ease-in-out infinite;
+}

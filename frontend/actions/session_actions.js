@@ -1,4 +1,4 @@
-import { postUser, deleteSession, postSession } from '../utils/session'
+import { postUser, deleteSession, postSession } from '../utils/session_utils'
 
 
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
@@ -21,8 +21,6 @@ export const sessionError = errors => ({
     errors
 })
 
-window.sessionError = sessionError;
-
 // formUser is from the html (our code), dispatch is from middleware (not our code)
 export const createNewUser = formUser => dispatch => postUser(formUser)
     .then(user => {
@@ -41,6 +39,5 @@ export const login = formUser => dispatch => postSession(formUser)
     );
 
 export const logout = () => dispatch => deleteSession()
-    .then(() => dispatch(logoutCurrentUser()), 
-        err => dispatch(sessionError(err.responseJSON))
+    .then(() => dispatch(logoutCurrentUser())
     );

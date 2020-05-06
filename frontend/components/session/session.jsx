@@ -39,10 +39,11 @@ class Session extends React.Component {
     handleFormSubmit(e) {
         e.preventDefault();
         this.errors = [];
+        const user = Object.assign({}, this.state);
 
         if (this.loggingIn){
             if (this.state.loginEmail !== '' && this.state.loginPassword !== ''){
-                this.props.login(this.state)
+                this.props.login(user)
                 // this will be implemented later
                 // .then(() => this.props.history.push('/questions'));
                 // If they are still on this page after submitting, because I 
@@ -56,7 +57,7 @@ class Session extends React.Component {
             if (this.state.email !== '' && this.state.password !== '' &&
                 this.state.fname !== '' && this.state.lname !== '' &&
                 this.state.password.length > 5){
-                this.props.createNewUser(this.state)
+                this.props.createNewUser(user)
                 // If they are still on this page after submitting, because I 
                 // automatically redirect on sucessful signup / login, 
                 // this would be the only other source of errors (that I know of!)

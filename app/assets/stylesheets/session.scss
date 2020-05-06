@@ -11,7 +11,6 @@
 
 .website-title {
     grid-area: 1 / 1 / 2 / 3;
-    // color: rgb(175, 4, 4);
     text-align: center;
     font-size: 38px;
 }
@@ -121,7 +120,7 @@ form {
     margin-left: 2px;
 }
 
-.session-form button {
+.signup-button, .login-button {
     background-color: #3e78ad;
     color: white;
     font-weight: bold;
@@ -129,6 +128,15 @@ form {
     align-self: flex-end;
 }
 
-.errors {
-    color: red;
+.session-error {
+    color: black;
+    font-weight: bold;
+    list-style: none;
+    font-size: 16px;
+    grid-area: 3 / 1 / 4 / 2;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+    justify-self: center;
+    margin: 40px 30px 40px 20px;
 }

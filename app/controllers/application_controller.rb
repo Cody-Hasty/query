@@ -20,13 +20,6 @@ class ApplicationController < ActionController::Base
       !current_user.nil?
   end
 
-  # redirect for these cases?
-  # no redirect, just json for errors
-
-  # def require_logged_out
-      # not required for Query, only logged in users
-  # end
-
   def require_logged_in
       render json: ['You need to login to view this page'] unless current_user
   end
