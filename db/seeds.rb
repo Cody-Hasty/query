@@ -7,3 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.create(email: 'demo@demo.com', password: '123456', credentials: "Demo User", fname: "John", lname: "Doe")
+
+
+
+# User.create(email: '', password: '', credentials: '', fname: '', lname: '')
+# Question.create(title: '', body: '', topic: '', author_id: '')
+
+

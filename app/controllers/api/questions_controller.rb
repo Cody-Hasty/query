@@ -4,14 +4,14 @@ class QuestionsController < ApplicationController
 
     def index
         @questions = Question.all
-        render 'api/questions'
+        # render 'api/questions'
     end
 
 
     def create
         @question = Question.new(question_params)
         if @question.save
-            render 'api/questions'
+            # render 'api/questions'
         else
             render json: @question.errors.full_messages
         end
@@ -19,13 +19,13 @@ class QuestionsController < ApplicationController
 
     def show
         @question = Question.find(params[:id])
-        render 'api/questions/show'
+        # render 'api/questions/show'
     end
 
     def update
         @question = Question.find(params[:id])
         if @question.update(question_params)
-            render 'api/questions/show'
+            # render 'api/questions/show'
         else
             render json: @question.errors.full_messages
         end
@@ -34,7 +34,7 @@ class QuestionsController < ApplicationController
     def destroy
         @question = Question.find(params[:id])
         @question.destroy
-        render 'api/questions'
+        # render 'api/questions'
     end
 
     private
