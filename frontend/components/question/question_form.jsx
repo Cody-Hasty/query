@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class QuestionForm extends React.Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class QuestionForm extends React.Component {
       <div className="question-modal">
         <form className="question-form" onSubmit={this.handleSubmit}>
           <h1>New Question</h1>
+          <Link to="/" className="close-new-question"><button className="close-question-button">X</button></Link>
             <input
               type="text"
               placeholder="Title"
@@ -52,8 +54,7 @@ class QuestionForm extends React.Component {
               value={this.state.topic}
               onChange={this.handleInput('topic')}
             />
-            <input
-              type="textarea"
+            <textarea
               placeholder="Body"
               value={this.state.body}
               onChange={this.handleInput('body')}
