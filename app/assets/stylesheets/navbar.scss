@@ -1,18 +1,19 @@
 .nav-bar {
     position:absolute;
-    top: 3%;
-    bottom: 90%;
-    left: 3%;
-    right: 3%;
+    top: 35px;
+    height: 60px;
+    left: 45px;
+    right: 45px;
     background-color: white;
     border: 3px solid black;
+    min-width: 625px;
 }
 
 .banner {
     height: 100%;
     width: 100%;
     display: grid;
-    grid-template-columns: 20% auto 20%;
+    grid-template-columns: 200px auto 250px;
     grid-template-rows: 50% 50%;
 }
 
@@ -20,6 +21,13 @@
     grid-area: 1 / 1 / 3 / 2;
     text-align: left;
     margin-left: 20px;
+    min-width: 175px;
+    // min-height: 60px;
+}
+
+.website-title-link {
+    text-decoration: none;
+    color: black;
 }
 
 .navbar-website-title h1 {
@@ -38,9 +46,40 @@
     background-size: 400% 100%;
 }
 
+.link-to-new-question {
+    grid-area: 1 / 2 / 3 / 3;
+    width: 125px;
+    height: 36px;
+    align-self: center;
+
+}
+
+.ask-question-button {
+    width: 125px;
+
+    padding: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+    background-color: #df4930;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    // min-width: 100px;
+}
+
+.ask-question-button:hover {
+    color: #fff;
+    background-color: #d53c219a;
+    cursor: pointer;
+}
+
 .welcome {
     grid-area: 1 / 3 / 2 / 4;
+    width: 230px;
+    height: 100%;
     margin: 10px;
+    justify-self: right;
     text-align: right;
 }
 
@@ -52,7 +91,7 @@
     background-color: #507cc0;
     color: white;
     border: none;
-    border-radius: 2px;
+    border-radius: 20px;
 }
 
 .logout-button:hover {

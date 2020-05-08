@@ -1,9 +1,16 @@
 .sidebar {
+    min-width: 200px;
     position: absolute;
-    top: 15%;
-    left: 3%;
-    right: 80%;
-    bottom: 25%;
+    top: 140px;
+    left: 45px;
+    width: 200px;
+    height: 450px;
     background-color: white;
     border: 3px solid black;
+    padding-left: 15px;
+    padding-right: 10px;
 }
+
+// .topic-list {
+
+// }

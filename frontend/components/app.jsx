@@ -13,10 +13,10 @@ export default () => (
   <div>
     <ShownRoute path="/" component={NavBarContainer} />
     <ShownRoute path="/" component={SidebarContainer} />
-    <ShownRoute path="/" component={FeedContainer} />
+    <ShownRoute exact path="/" component={FeedContainer} />
     <HiddenRoute exact path="/" component={SessionContainer} />
     <ProtectedRoute path="/questions/new" component={QuestionFormContainer} />
     <ProtectedRoute path="/questions/:id" component={QuestionShowContainer} />
-    <ShownRoute path="/api/questions" component={QuestionIndexContainer} />
+    <ShownRoute path="/questions" component={QuestionIndexContainer} />
   </div>
 );

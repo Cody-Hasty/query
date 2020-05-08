@@ -37,28 +37,30 @@ class QuestionForm extends React.Component {
 
   render() {
     return (
-      <form className="question-form" onSubmit={this.handleSubmit}>
-        <h1>New Question</h1>
-          <input
-            type="text"
-            placeholder="Title"
-            value={this.state.title}
-            onChange={this.handleInput('title')}
-          />
-          <input
-            type="textarea"
-            placeholder="Body"
-            value={this.state.body}
-            onChange={this.handleInput('body')}
-          />
-          <input
-            type="text"
-            placeholder="Topic"
-            value={this.state.topic}
-            onChange={this.handleInput('topic')}
-          />
-          <button className="create-question-button">Create Question</button>
-      </form>
+      <div className="question-modal">
+        <form className="question-form" onSubmit={this.handleSubmit}>
+          <h1>New Question</h1>
+            <input
+              type="text"
+              placeholder="Title"
+              value={this.state.title}
+              onChange={this.handleInput('title')}
+            />
+            <input
+              type="text"
+              placeholder="Topic"
+              value={this.state.topic}
+              onChange={this.handleInput('topic')}
+            />
+            <input
+              type="textarea"
+              placeholder="Body"
+              value={this.state.body}
+              onChange={this.handleInput('body')}
+            />
+            <button className="create-question-button">Create Question</button>
+        </form>
+      </div>
     );
   }
 }
