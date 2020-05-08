@@ -24,7 +24,7 @@ class QuestionForm extends React.Component {
 
     const question = Object.assign({}, this.state);
 
-    this.props.createQuestion({question})
+    this.props.createQuestion(question)
     .then(() => {
         this.setState({
         title: '',
