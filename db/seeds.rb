@@ -10,9 +10,6 @@ User.create(email: 'demo@demo.com', password: '123456', credentials: "Demo User"
 User.create(email: 'cookiemonster@cookie.net', password: 'cookie', credentials: 'Gourmet chef and talk show host', fname: 'Cookie', lname: 'Monster')
 User.create(email: 'tacotuesday@yum.com', password: 'saucey', credentials: 'I eat a LOT of tacos', fname: 'Taco', lname: 'Tuesday')
 User.create(email: 'bobthebuffetman@man.net', password: 'buffet', credentials: 'On a see-food diet', fname: 'Bob', lname: 'BuffetMan')
-
-
-
 Question.create(title: 'COOKIE??!!??', body: 'Does anybody know any good cookie places near Seasame St?', topic: 'food', author_id: '2')
 Question.create(title: 'What day is it?', body: 'I lost my calender, what day of the week is it?', topic: 'time management', author_id: '3')
 Question.create(title: 'Tortilla substitutions?', body: 'I\'m out of tortillas, what could I replace them with in my kitchen?', topic: 'cooking', author_id: '3')
