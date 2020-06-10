@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Session extends React.Component {
+class SessionForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -14,57 +14,47 @@ class Session extends React.Component {
         }
 
         this.loggingIn = true;
-        this.loginAttempt = false;
-        this.errors = [];
-        this.errorLogic = this.errorLogic.bind(this);
         this.handleDemoLogin = this.handleDemoLogin.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.handleFormTypeSubmit = this.handleFormTypeSubmit.bind(this);
         this.formDisplay = this.formDisplay.bind(this);
         this.buttonDisplay = this.buttonDisplay.bind(this);
-        this.errorDisplay = this.errorDisplay.bind(this);
+        this.renderErrors = this.renderErrors.bind(this);
     }
-
+    
+    componentWillUnmount() {
+        this.props.removeSessionErrors();
+    }
+    
     handleInput(type) {
         return (e) => {
             this.setState({ [type]: e.target.value });
         }
     }
-
+    
     handleDemoLogin(e) {
         e.preventDefault();
         this.state.loginPassword = "123456"
         this.state.loginEmail = "demo@demo.com"
         this.props.login(this.state);
     }
-
+    
     handleFormSubmit(e) {
         e.preventDefault();
         const user = Object.assign({}, this.state);
         
         if (this.loggingIn){
-            if (this.state.loginEmail !== '' && this.state.loginPassword !== ''){
-                this.props.login(user)  
-            }
+            this.props.login(user)
         }
         else {
-            if (this.state.email !== '' && this.state.password !== '' &&
-            this.state.fname !== '' && this.state.lname !== '' &&
-            this.state.password.length > 5){
-                this.props.createNewUser(user)
-            }
+            this.props.createNewUser(user)
         }
-        this.setState(this.state);
-        this.loginAttempt = true;
-        this.errors = [];
-        this.errorLogic();
     }
     
     handleFormTypeSubmit(e) {
         e.preventDefault();
         this.loggingIn = !this.loggingIn;
-        this.loginAttempt = false;
-        this.errors = [];
+        this.props.removeSessionErrors();
         this.setState(this.state);
     }
     
@@ -135,36 +125,21 @@ class Session extends React.Component {
     buttonDisplay() {
         return this.loggingIn ? "Sign Up" : "Log In"
     }
+    
+    renderErrors() {
+        console.log(Object.values(this.props.session_errors));
+        let session_errors = Object.values(this.props.session_errors).flat();
+        if (session_errors) {
+            return (
+                <div className="session-error">
+                    {session_errors.map((error, i) => {
+                        return <li key={i}>{error}</li>
+                    })}
+                </div>
+            )
+        }
+    }
 
-    errorLogic () {
-        if (this.loggingIn) {
-            if (this.state.loginEmail !== '' && this.state.loginPassword !== '') {
-                this.errors.push("Invalid login")
-            } else {
-                this.errors.push("Please fill out all required fields");
-            }
-        }
-        else {
-            if (this.state.email !== '' && this.state.password !== '' &&
-                this.state.fname !== '' && this.state.lname !== '' &&
-                this.state.password.length > 5) {
-                    this.errors.push("That email address already has an account")
-                } 
-                if (this.state.password.length < 6) {
-                    this.errors.push("Please enter a password with 6 or more characters");
-                } 
-                if (this.state.email === '' || this.state.fname === '' ||
-                this.state.lname === '') {
-                    this.errors.push("Please fill out all required fields");
-                }
-        }
-    }
-    
-    errorDisplay() {
-        this.errors = this.errors.filter((x, i, arr) => arr.indexOf(x) === i);
-        return this.errors.map(error => <li key={error}>{error}</li>)
-    }
-    
     render() {
         return (
             <div className="session-box">
@@ -183,12 +158,10 @@ class Session extends React.Component {
                 <div className="session-form">
                     {this.formDisplay()}
                 </div>
-                <div className="session-error">
-                    {this.loginAttempt && this.errorDisplay()}
-                </div>
+                {this.renderErrors()}
             </div>
         )
     }
 };
 
-export default Session;
+export default SessionForm;

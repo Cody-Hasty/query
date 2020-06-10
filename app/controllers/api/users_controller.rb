@@ -6,7 +6,7 @@ class Api::UsersController < ApplicationController
       login!(@user)
       render :show
     else
-      render json: @user.errors.full_messages
+      render json: @user.errors.full_messages, status: 401
       
     end
   end
@@ -24,9 +24,9 @@ class Api::UsersController < ApplicationController
     if @user && @user.update_attributes(user_params)
       render :show
     elsif !@user
-      render json: ['User not found']
+      render json: ['User not found'], status: 401
     else
-      render json: @user.errors.full_messages
+      render json: @user.errors.full_messages, status: 401
     end
   end
   
@@ -37,7 +37,7 @@ class Api::UsersController < ApplicationController
       @user.destroy
       render :show
     else
-      render json: ['User not found']
+      render json: ['User not found'], status: 401
     end
   end
   

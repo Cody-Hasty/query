@@ -1,14 +1,13 @@
 import { postUser, deleteSession, postSession } from '../utils/session_utils'
 
 
-export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
+export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
-export const SESSION_ERROR = "SESSION_ERROR";
+export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
+export const REMOVE_SESSION_ERRORS = "REMOVE_SESSION_ERRORS";
 
 export const receiveCurrentUser = user => ({
     type: RECEIVE_CURRENT_USER,
-    
-    // this is the payload variable we recieve back
     user
 })
 
@@ -16,28 +15,26 @@ export const logoutCurrentUser = () => ({
     type: LOGOUT_CURRENT_USER
 });
 
-export const sessionError = errors => ({
-    type: SESSION_ERROR,
+export const receiveSessionErrors = errors => ({
+    type: RECEIVE_SESSION_ERRORS,
     errors
-})
+});
+
+export const removeSessionErrors = () => ({
+    type: REMOVE_SESSION_ERRORS,
+});
 
 // formUser is from the html (our code), dispatch is from middleware (not our code)
-export const createNewUser = formUser => dispatch => postUser(formUser)
-    .then(user => {
-            dispatch(receiveCurrentUser(user));
-            // dispatch(sessionError(responseJSON))
-        },
-        err => dispatch(sessionError(err.responseJSON))
-    );
+export const createNewUser = formUser => dispatch => (
+    postUser(formUser)
+        .then((formUser) => (dispatch(receiveCurrentUser(formUser))),
+        (err) => (dispatch(receiveSessionErrors(err.responseJSON)))));
 
+export const login = user => dispatch => (
+    postSession(user)
+        .then((user) => (dispatch(receiveCurrentUser(user))),
+        (err) => (dispatch(receiveSessionErrors(err.responseJSON)))));
 
-export const login = formUser => dispatch => postSession(formUser)
-    .then(user => {
-            dispatch(receiveCurrentUser(user));
-        },
-        err => dispatch(sessionError(err.responseJSON))
-    );
-
-export const logout = () => dispatch => deleteSession()
-    .then(() => dispatch(logoutCurrentUser())
-    );
+export const logout = () => dispatch => (
+    deleteSession()
+        .then(() => dispatch(logoutCurrentUser())));
