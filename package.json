@@ -24,6 +24,7 @@
     "npm": "6.4.1"
   },
   "scripts": {
+    "postinstall": "webpack",
     "server": "webpack -w --mode=development",
     "start": "concurrently \"webpack -w --mode=development\" \"rails s\""
   }
