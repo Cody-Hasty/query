@@ -15,6 +15,7 @@
     "webpack": "^4.29.3"
   },
   "devDependencies": {
+    "concurrently": "^5.2.0",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "webpack-cli": "^3.2.1"
@@ -25,7 +26,7 @@
   },
   "scripts": {
     "postinstall": "webpack",
-    "server": "webpack -w --mode=development",
-    "start": "concurrently \"webpack -w --mode=development\" \"rails s\""
+    "start": "webpack -w --mode=development",
+    "dev": "concurrently \"webpack -w --mode=development\" \"rails s\""
   }
 }
