@@ -127,7 +127,6 @@ class SessionForm extends React.Component {
     }
     
     renderErrors() {
-        console.log(Object.values(this.props.session_errors));
         let session_errors = Object.values(this.props.session_errors).flat();
         if (session_errors) {
             return (

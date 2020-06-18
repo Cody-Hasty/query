@@ -46,10 +46,9 @@ class User < ApplicationRecord
         self.session_token
     end
 
-    # has_many associations to be added here later!
     has_many :questions,
-        class_name: :Question,
-        foreign_key: :author_id
+        foreign_key: :author_id,
+        dependent: :destroy
 
 
 end

@@ -11,12 +11,11 @@
 #  updated_at :datetime         not null
 #
 class Question < ApplicationRecord
-validates :title, presence: true
-validates :author_id, presence: true
+    
+    validates :title, :topic, :body, presence: true
 
-belongs_to :author,
-    class_name: :User,
-    foreign_key: :author_id
+    belongs_to :author,
+    class_name: :User
 
 
 

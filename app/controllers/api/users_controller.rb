@@ -4,7 +4,7 @@ class Api::UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       login!(@user)
-      render :show
+      render "api/users/show"
     else
       render json: @user.errors.full_messages, status: 401
       
@@ -13,16 +13,20 @@ class Api::UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    if @user
+      render "api/questions/show"
+    end
   end
   
   def index
     @users = User.all
+    render "api/users/index"
   end
 
   def update
     @user = User.find(params[:id])
     if @user && @user.update_attributes(user_params)
-      render :show
+      render "api/questions/show"
     elsif !@user
       render json: ['User not found'], status: 401
     else
@@ -35,7 +39,7 @@ class Api::UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user
       @user.destroy
-      render :show
+      render "api/users/index"
     else
       render json: ['User not found'], status: 401
     end

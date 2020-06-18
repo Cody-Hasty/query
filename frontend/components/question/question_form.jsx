@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 
 class QuestionForm extends React.Component {
   constructor(props) {
@@ -7,13 +7,20 @@ class QuestionForm extends React.Component {
     this.state = {
       title: '',
       body: '',
-      topic: '',      
+      topic: 'general',      
+      author_id: this.props.author_id,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderErrors = this.renderErrors.bind(this);
+  }
+
+  componentWillUnmount() {
+    this.props.removeQuestionErrors();
   }
 
   handleInput(type) {
+    // console.log("user id: ", this.props.userid);
     return (e) => {
       this.setState({ [type]: e.target.value });
     }
@@ -21,22 +28,29 @@ class QuestionForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-
     const question = Object.assign({}, this.state);
-
-    this.props.createQuestion(question)
-    .then(() => {
-        this.setState({
-        title: '',
-        body: '',
-        topic: '',
-      });
+    this.props.sendQuestion(question)
+      .then(() => {
+        this.props.history.push('/');
+        console.log("Success");
+    }, (err) => {this.renderErrors()})
+  }
+  
+  renderErrors() {
+    let question_errors = Object.values(this.props.question_errors).flat();
+    if (question_errors){
+      return (
+        <div className="question-error">
+          {question_errors.map((error, i) => {
+            return <li key={i}>{error}</li>
+          })}
+        </div>
+      )
     }
-    );
   }
 
-
   render() {
+    // console.log(this.props.history)
     return (
       <div className="question-modal">
         <form className="question-form" onSubmit={this.handleSubmit}>
@@ -59,11 +73,12 @@ class QuestionForm extends React.Component {
               value={this.state.body}
               onChange={this.handleInput('body')}
             />
-            <button className="create-question-button">Create Question</button>
+            <button className="create-question-button" onClick={this.handleSubmit}>Create Question</button>
+            {this.renderErrors()}
         </form>
       </div>
     );
   }
 }
 
-export default QuestionForm;
+export default withRouter(QuestionForm);

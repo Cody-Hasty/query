@@ -5,18 +5,17 @@ class QuestionIndexItem extends React.Component {
   constructor(props) {
     super(props);
   }
-  //  by {this.props.user.fname} {this.props.user.lname}
   render() {
+    const question = this.props.question;
     return (
-      <li className="question-list-item">
-        <div className="question-header">
-          <h3>{this.props.question.title}</h3>
-          <p>Writen in #{this.props.question.topic}</p>
-          <p>{this.props.question.body}</p>
-        </div>
-      </li>
+      <div className="question-header">
+        <h3>{question.title}</h3>
+        <p>Writen in <strong>#{question.topic}</strong> by <strong>{question.fname} {question.lname}</strong></p>
+        <p>{question.body}</p>
+      </div>
     );
   }
 }
+
 
 export default withRouter(QuestionIndexItem);

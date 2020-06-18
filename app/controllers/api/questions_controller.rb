@@ -1,40 +1,47 @@
-class QuestionsController < ApplicationController
-    before_action :require_logged_in
-    before_action :require_current_users_question, only: [:update, :destroy, :create, :show, :index]
+class Api::QuestionsController < ApplicationController
+    # before_action :require_logged_in, only: [:create, :index]
+
+    def new
+        @question = Question.new
+        render json: ["Question Form"]
+    end
 
     def index
         @questions = Question.all
-        # render 'api/questions'
+        render "api/questions/index"
     end
-
 
     def create
         @question = Question.new(question_params)
         if @question.save
-            # render 'api/questions'
+            render "api/questions/show"
         else
-            render json: @question.errors.full_messages
+            render json: @question.errors.full_messages, status: 422
         end
     end
 
     def show
         @question = Question.find(params[:id])
-        # render 'api/questions/show'
+        if @question
+            render "api/questions/show"
+        else
+            render json: @question.errors.full_messages, status: 404
+        end
     end
 
     def update
         @question = Question.find(params[:id])
         if @question.update(question_params)
-            # render 'api/questions/show'
+            render "api/questions/show"
         else
-            render json: @question.errors.full_messages
+            render json: @question.errors.full_messages, status: 422
         end
     end
 
     def destroy
         @question = Question.find(params[:id])
         @question.destroy
-        # render 'api/questions'
+        render json: ["Question deleted"]
     end
 
     private
@@ -42,11 +49,4 @@ class QuestionsController < ApplicationController
     def question_params
         params.require(:question).permit(:title, :body, :topic, :author_id)
     end
-
-    def require_current_users_question
-        return if current_user.questions.find_by(id: params[:id])
-        render json: ["This is not your question"]
-    end
-
-
 end

@@ -1,23 +1,27 @@
-export const fetchQuestions = (data) => (
+export const fetchQuestions = (questions) => (
     $.ajax({
         method: 'GET',
         url: '/api/questions',
-        data
+        data: {
+            questions
+        }
     })
 );
 
 export const fetchQuestion = question => (
     $.ajax({
         method: 'GET',
-        url: `/api/questions/${question.id}`,
+        url: `api/questions/${question.id}`,
     })
 );
 
 export const createQuestion = question => (
     $.ajax({
-        method: 'POST',
         url: '/api/questions',
-        data: question
+        method: 'POST',
+        data: {
+            question
+        }
     })
 );
 
@@ -31,16 +35,9 @@ export const updateQuestion = question => (
     })
 );
 
-export const deleteQuestions = id => (
+export const deleteQuestion = question => (
     $.ajax({
         method: 'DELETE',
-        url: `api/questions/${id}`
+        url: `/api/questions/${question.id}`
     })
 );
-
-// export const fetchAuthor = id => (
-//     $.ajax({
-//         method: 'GET',
-//         url: `/users/${author_id}`,
-//     })
-// )

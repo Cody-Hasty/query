@@ -27,13 +27,13 @@ ActiveRecord::Schema.define(version: 2020_05_01_234352) do
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
+    t.string "fname", default: "John", null: false
+    t.string "lname", default: "Doe", null: false
     t.string "password_digest"
     t.string "session_token"
     t.string "credentials"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "fname", default: "John", null: false
-    t.string "lname", default: "Doe", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["session_token"], name: "index_users_on_session_token"
   end

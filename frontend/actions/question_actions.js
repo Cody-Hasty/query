@@ -3,7 +3,9 @@ import * as QuestionAPIUtil from '../utils/question_utils';
 export const RECEIVE_QUESTION = 'RECEIVE_QUESTION';
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
 export const REMOVE_QUESTION = 'REMOVE_QUESTION';
-export const QUESTION_ERROR = 'QUESTION_ERROR';
+export const RECEIVE_QUESTION_ERRORS = 'RECEIVE_QUESTION_ERRORS';
+export const REMOVE_QUESTION_ERRORS = 'REMOVE_QUESTION_ERRORS';
+
 
 export const receiveQuestion = question => ({
     type: RECEIVE_QUESTION,
@@ -15,35 +17,51 @@ export const receiveQuestions = questions => ({
     questions
 });
 
-export const removeQuestion = question => ({
+export const removeQuestion = questionId => ({
     type: REMOVE_QUESTION,
-    question
+    questionId
 });
 
-export const questionError = error => ({
-    type: QUESTION_ERROR,
-    error
+export const receiveQuestionErrors = errors => ({
+    type: RECEIVE_QUESTION_ERRORS,
+    errors
 });
+
+export const removeQuestionErrors = () => ({
+    type: REMOVE_QUESTION_ERRORS,
+})
 
 export const fetchQuestions = (questions) => dispatch => (
     QuestionAPIUtil.fetchQuestions(questions)
-    .then((questions) => (dispatch(receiveQuestions(questions)))
-))
+    .then((questions) => (dispatch(receiveQuestions(questions))),
+        (err) => (
+            dispatch(receiveQuestionErrors(err.responseJSON))
+        ))
+)
 
-export const fetchQuestion = (id) => dispatch => (
-    QuestionAPIUtil.fetchQuestion(id)
-    .then(question => (dispatch(receiveQuestion(question)))
-))
+export const fetchQuestion = (question) => (dispatch) => (
+    QuestionAPIUtil.fetchQuestion(question)
+    .then((question) => (dispatch(receiveQuestion(question))),
+        (err) => (
+            dispatch(receiveQuestionErrors(err.responseJSON))
+        ))
+);
 
-export const createQuestion = question => dispatch => (
+export const createQuestion = (question) => (dispatch) => (
     QuestionAPIUtil.createQuestion(question)
-    .then(question => (dispatch(receiveQuestion(question)))
-))
+    .then((question) => (dispatch(receiveQuestion(question))),
+        (err) => (
+            dispatch(receiveQuestionErrors(err.responseJSON))
+        ))
+)
 
 export const updateQuestion = question => dispatch => (
     QuestionAPIUtil.updateQuestion(question)
-    .then(question => (dispatch(receiveQuestion(question)))
-))
+    .then(question => (dispatch(receiveQuestion(question))),
+        (err) => (
+            dispatch(receiveQuestionErrors(err.responseJSON))
+        ))
+)
 
 export const deleteQuestion = question => dispatch => (
     QuestionAPIUtil.deleteQuestion(question)

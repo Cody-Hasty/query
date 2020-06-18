@@ -1,11 +1,39 @@
 .feed {
-    position: absolute;
-    top: 140px;
-    bottom: 0px;
-    left: 330px;
-    right: 45px;
     min-width: 340px;
-    min-height: 975px;
+    min-height: max-content;
     background-color: white;
     border: 3px solid black;
+    margin-top: 15px;
+    margin-left: 250px;
+}
+
+.crud-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.crud-buttons button {
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.edit-crud-button {
+    background-color: #df4930;
+    color: white;
+}
+
+.edit-crud-button:hover {
+    background-color: #d53c219a;
+}
+
+.del-crud-button {
+    background-color: #507cc0;
+    color: white;
+}
+
+.del-crud-button:hover {
+    background-color: #416fb598;
 }
