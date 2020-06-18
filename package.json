@@ -26,6 +26,7 @@
   },
   "scripts": {
     "start": "webpack -w --mode=development",
-    "dev": "concurrently \"webpack -w --mode=development\" \"rails s\""
+    "dev": "concurrently \"webpack -w --mode=development\" \"rails s\"",
+    "postinstall": "webpack"
   }
 }
