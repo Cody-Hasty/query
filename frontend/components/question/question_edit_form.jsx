@@ -20,7 +20,6 @@ class QuestionEditForm extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.renderErrors = this.renderErrors.bind(this);
-        console.log("History: ", this.props.history);
     }
 
     componentWillUnmount() {
