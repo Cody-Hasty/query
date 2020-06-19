@@ -13,13 +13,13 @@
     "react-router-dom": "^4.3.1",
     "redux": "^3.7.2",
     "redux-thunk": "^2.3.0",
-    "webpack": "^4.29.3"
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.1"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
     "redux-devtools-extension": "^2.13.8",
-    "redux-logger": "^3.0.6",
-    "webpack-cli": "^3.2.1"
+    "redux-logger": "^3.0.6"
   },
   "engines": {
     "node": "10.13.0",
@@ -28,6 +28,6 @@
   "scripts": {
     "start": "webpack -w --mode=development",
     "dev": "concurrently \"webpack -w --mode=development\" \"rails s\"",
-    "postinstall": "webpack"
+    "postinstall": "webpack --mode=production"
   }
 }
