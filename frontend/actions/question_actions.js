@@ -39,8 +39,8 @@ export const fetchQuestions = (questions) => dispatch => (
         ))
 )
 
-export const fetchQuestion = (question) => (dispatch) => (
-    QuestionAPIUtil.fetchQuestion(question)
+export const fetchQuestion = (id) => (dispatch) => (
+    QuestionAPIUtil.fetchQuestion(id)
     .then((question) => (dispatch(receiveQuestion(question))),
         (err) => (
             dispatch(receiveQuestionErrors(err.responseJSON))

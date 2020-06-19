@@ -6,8 +6,7 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :show]  
     resources :questions
   end
-  
-  # get '/askquestion', to: 'api/questions#new';
+
   root to: 'root#root'
-  get '/questions/:id', to: 'api/questions#show';
+  # match 'questions/:id' :to => 'api/questions#show' 
 end

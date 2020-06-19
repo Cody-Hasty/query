@@ -1,0 +1,113 @@
+import React from 'react';
+import { RiArrowGoBackLine } from "react-icons/ri";
+
+class QuestionEditForm extends React.Component {
+    constructor(props) {
+        super(props);
+        
+        this.state = null;
+        
+        this.props.fetchQuestion({ id: this.props.questionId })
+        .then((data) => {
+            this.setState({
+                id: data.question.id,
+                title: data.question.title,
+                body: data.question.body,
+                topic: data.question.topic,
+                author_id: data.question.author_id,
+            });
+        });
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.renderErrors = this.renderErrors.bind(this);
+        console.log("History: ", this.props.history);
+    }
+
+    componentWillUnmount() {
+        this.props.removeQuestionErrors();
+    }
+
+    handleInput(type) {
+        return (e) => {
+            this.setState({ [type]: e.target.value });
+        }
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        const question = Object.assign({}, this.state);
+        this.props.sendQuestion(question)
+            .then((data) => {
+                this.props.history.push(`/questions/${data.question.id}`);
+            }, (err) => { this.renderErrors() })
+    }
+
+    handleDelete(question) {
+        this.props.deleteQuestion(question).then(() => {
+            this.props.history.push('/');
+        })
+    }
+
+    renderErrors() {
+        let question_errors = Object.values(this.props.question_errors).flat();
+        if (question_errors) {
+            return (
+                <div className="question-error">
+                    {question_errors.map((error, i) => {
+                        return <li key={i}>{error}</li>
+                    })}
+                </div>
+            )
+        }
+    }
+
+    crudOptions(question) {
+        if (question.author_id == currentUser.id) {
+            return (
+                <div className="crud-buttons">
+                    <button className="del-crud-button" onClick={() => this.handleDelete(question)}>Delete</button>
+                </div>
+            )
+        }
+    }
+
+    render() {
+        if(this.state === null) {
+            return null;
+        }
+        return (
+            <div className="show">
+                <div className="edit-question">
+                    <form className="edit-question-form" onSubmit={this.handleSubmit}>
+                        <h1>Edit Question</h1>
+                        <input
+                            type="text"
+                            placeholder="Title"
+                            value={this.state.title}
+                            onChange={this.handleInput('title')}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Topic"
+                            value={this.state.topic}
+                            onChange={this.handleInput('topic')}
+                        />
+                        <textarea
+                            placeholder="Body"
+                            value={this.state.body}
+                            onChange={this.handleInput('body')}
+                        />
+                        <button onClick={this.handleSubmit}>Update Question</button>
+                        {this.renderErrors()}
+                    </form>
+                    <div className="show-button-box">
+                        <button onClick={() => this.props.history.goBack()} className="back-button"><RiArrowGoBackLine />Go Back</button>
+                        {this.crudOptions(this.state)}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+export default QuestionEditForm;

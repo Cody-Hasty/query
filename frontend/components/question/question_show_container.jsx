@@ -3,8 +3,8 @@ import QuestionShow from './question_show';
 
 import { deleteQuestion, fetchQuestion } from '../../actions/question_actions';
 
-const mapStateToProps = (state) => ({
-  state: state,
+const mapStateToProps = (state, { match }) => ({
+  questionId: parseInt(match.params.id),
 });
 
 const mapDispatchToProps = dispatch => ({

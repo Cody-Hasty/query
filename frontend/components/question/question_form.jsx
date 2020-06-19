@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class QuestionForm extends React.Component {
   constructor(props) {
@@ -20,7 +20,6 @@ class QuestionForm extends React.Component {
   }
 
   handleInput(type) {
-    // console.log("user id: ", this.props.userid);
     return (e) => {
       this.setState({ [type]: e.target.value });
     }
@@ -30,9 +29,8 @@ class QuestionForm extends React.Component {
     e.preventDefault();
     const question = Object.assign({}, this.state);
     this.props.sendQuestion(question)
-      .then(() => {
-        this.props.history.push('/');
-        console.log("Success");
+      .then((data) => {
+        this.props.history.push(`/questions/${data.question.id}`);
     }, (err) => {this.renderErrors()})
   }
   
@@ -50,7 +48,6 @@ class QuestionForm extends React.Component {
   }
 
   render() {
-    // console.log(this.props.history)
     return (
       <div className="question-modal">
         <form className="question-form" onSubmit={this.handleSubmit}>

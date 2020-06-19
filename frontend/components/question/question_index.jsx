@@ -1,6 +1,5 @@
 import React from 'react';
 import QuestionIndexItem from './question_index_item';
-import { Link } from 'react-router-dom';
 
 class QuestionIndex extends React.Component {  
   constructor(props){
@@ -15,7 +14,7 @@ class QuestionIndex extends React.Component {
   }
 
   handleEdit(question) {
-    this.props.history.push(`/questions/${question.id}`);
+    this.props.history.push(`/questions/${question.id}/edit`);
   }
 
   crudOptions(question) {
@@ -33,8 +32,7 @@ class QuestionIndex extends React.Component {
     const questions = Object.values(this.props.questions);
     return(
       <div className="feed">
-        
-        {questions.map((question, i) => (
+        {questions.reverse().map((question, i) => (
           <li key={i} className="question-list-item">
             <QuestionIndexItem question={question} key={question.id}/>
             {this.crudOptions(question)}

@@ -1,7 +1,7 @@
 export const fetchQuestions = (questions) => (
     $.ajax({
-        method: 'GET',
         url: '/api/questions',
+        method: 'GET',
         data: {
             questions
         }
@@ -10,8 +10,8 @@ export const fetchQuestions = (questions) => (
 
 export const fetchQuestion = question => (
     $.ajax({
-        method: 'GET',
         url: `api/questions/${question.id}`,
+        method: 'GET',
     })
 );
 
@@ -27,8 +27,8 @@ export const createQuestion = question => (
 
 export const updateQuestion = question => (
     $.ajax({
-        method: 'PATCH',
         url: `/api/questions/${question.id}`,
+        method: 'PATCH',
         data: {
             question
         }
@@ -37,7 +37,7 @@ export const updateQuestion = question => (
 
 export const deleteQuestion = question => (
     $.ajax({
+        url: `/api/questions/${question.id}`,
         method: 'DELETE',
-        url: `/api/questions/${question.id}`
     })
 );
