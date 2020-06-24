@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import QuestionIndex from './question_index';
 
-import { fetchQuestions, updateQuestion, deleteQuestion } from '../../actions/question_actions';
+import { fetchQuestions, deleteQuestion } from '../../actions/question_actions';
 
 const mapStateToProps = ({ entities }) => ({
   questions: entities.questions,

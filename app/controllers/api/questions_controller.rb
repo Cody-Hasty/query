@@ -1,16 +1,16 @@
 class Api::QuestionsController < ApplicationController
     # before_action :require_logged_in, only: [:create, :index]
-
+    
     def new
         @question = Question.new
         render json: ["Question Form"]
     end
-
+    
     def index
         @questions = Question.all
         render "api/questions/index"
     end
-
+    
     def create
         @question = Question.new(question_params)
         if @question.save
@@ -19,7 +19,7 @@ class Api::QuestionsController < ApplicationController
             render json: @question.errors.full_messages, status: 422
         end
     end
-
+    
     def show
         @question = Question.find(params[:id])
         if @question
@@ -28,7 +28,7 @@ class Api::QuestionsController < ApplicationController
             render json: @question.errors.full_messages, status: 404
         end
     end
-
+    
     def update
         @question = Question.find(params[:id])
         if @question.update(question_params)
@@ -37,16 +37,16 @@ class Api::QuestionsController < ApplicationController
             render json: @question.errors.full_messages, status: 422
         end
     end
-
+    
     def destroy
         @question = Question.find(params[:id])
         @question.destroy
         render json: ["Question deleted"]
     end
-
+    
     private
-
+    
     def question_params
-        params.require(:question).permit(:title, :body, :topic, :author_id)
+        params.require(:question).permit(:title, :body, :topic_id, :author_id)
     end
 end

@@ -40,7 +40,7 @@ class QuestionShow extends React.Component {
     return (
       <div className="show">
         <div className="show-box">
-          <p>Writen in <strong>#{this.state.question.topic}</strong> by <strong>{this.state.question.fname} {this.state.question.lname}</strong></p>
+          <p>Writen in <strong>#{this.state.question.name}</strong> by <strong>{this.state.question.fname} {this.state.question.lname}</strong></p>
           <h1>{this.state.question.title}</h1>
           <hr/>
           <p className="show-body">{this.state.question.body}</p>

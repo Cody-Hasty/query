@@ -9,7 +9,7 @@ class QuestionIndex extends React.Component {
 
   handleDelete(question) {
     this.props.deleteQuestion(question).then(() => {
-      this.state = this.props.getQuestions();
+      this.state.questions = this.props.getQuestions();
     })
   }
 
@@ -34,7 +34,7 @@ class QuestionIndex extends React.Component {
       <div className="feed">
         {questions.reverse().map((question, i) => (
           <li key={i} className="question-list-item">
-            <QuestionIndexItem question={question} key={question.id}/>
+            <QuestionIndexItem question={question} key={question.id} />
             {this.crudOptions(question)}
             <hr />
           </li>
