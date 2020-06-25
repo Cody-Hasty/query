@@ -4,7 +4,7 @@ import SessionContainer from './session/session_container';
 import QuestionIndexContainer from './question/question_index_container';
 import QuestionFormContainer from './question/question_form_container';
 import QuestionShowContainer from './question/question_show_container';
-import SidebarContainer from './sidebar/sidebar_container';
+import SidebarContainer from './topic/sidebar_container';
 import QuestionEditContainer from './question/question_edit_container';
 import { Route, Redirect, Router, Switch } from 'react-router-dom';
 import { AuthRoute, ProtectedRoute, HiddenRoute, ShownRoute} from '../utils/route_utils';

@@ -10,7 +10,6 @@
 class Topic < ApplicationRecord
     validates :name, presence: true, uniqueness: true
 
-    has_many :onTopicQuestions,
-        foreign_key: :topic_id
+    has_many :questions
 
 end

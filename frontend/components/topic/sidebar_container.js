@@ -1,18 +1,14 @@
 import React from 'react';
-import {
-    connect
-} from 'react-redux';
+import { connect } from 'react-redux';
 import Sidebar from './sidebar';
-import {
-    logout
-} from '../../actions/session_actions';
+import { fetchTopics } from '../../actions/topic_actions'
 
 const mapStateToProps = state => ({
-    // currentUser: state.session.currentUser,
+    topics: state.entities.topics,
 });
 
 const mapDispatchToProps = dispatch => ({
-    // logout: () => dispatch(logout()),
+    getTopics: () => dispatch(fetchTopics()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
