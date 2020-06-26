@@ -1,6 +1,6 @@
 @topics.each do |i|
     json.set! i.id do
-        json.extract! i, :id, :name
+        json.merge! i.attributes
         json.questions i.questions.length
     end
 end

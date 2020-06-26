@@ -1,26 +1,20 @@
 # == Schema Information
 #
-# Table name: questions
+# Table name: comments
 #
 #  id         :bigint           not null, primary key
-#  title      :string           not null
 #  body       :text             not null
-#  topic_id   :integer          not null
+#  post_id    :integer          not null
 #  author_id  :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class Question < ApplicationRecord
-    
-    validates :title, :topic_id, :body, presence: true
+class Comment < ApplicationRecord
+    validates :body, :post_id, :author_id, presence: true
 
     belongs_to :author,
     class_name: :User
 
-    belongs_to :topic,
-    class_name: :Topic
-
-    has_many :comments,
-    class_name: :Comment
-
+    belongs_to :post,
+    class_name: :Question
 end

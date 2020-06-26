@@ -9,8 +9,14 @@ class QuestionIndexItem extends React.Component {
     const question = this.props.question;
     return (
       <div className="question-header">
-        <button onClick={() => {this.props.history.push(`/questions/${question.id}`)}}><h3>{question.title}</h3></button>
-        <p>Writen in <strong>#{question.name}</strong> by <strong>{question.fname} {question.lname}</strong></p>
+        <button onClick={() => { this.props.history.push(`/questions/${question.id}`)}}><h3>{question.title}</h3></button>
+        <p>Written in #
+          <strong className="topic-linker" onClick={() => this.props.history.push(`/topics/${question.topic.id}`)}>
+            {question.topic.name}
+          </strong> by <strong>
+            {question.author.fname} {question.author.lname}
+          </strong>
+        </p>
         <p>{question.body}</p>
       </div>
     );

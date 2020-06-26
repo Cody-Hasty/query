@@ -1,5 +1,4 @@
 class Api::QuestionsController < ApplicationController
-    # before_action :require_logged_in, only: [:create, :index]
     
     def new
         @question = Question.new

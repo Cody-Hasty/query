@@ -33,7 +33,7 @@ class Sidebar extends React.Component {
             }
         })
         
-        this.state.topics = flipped;
+        this.setState({topics: flipped});
         this.reduceData();
     }
     
@@ -53,7 +53,7 @@ class Sidebar extends React.Component {
                 <h3>Trending Topics</h3>
                 <div className="topic-list">
                     {this.state.topic_names_list.map((topic) => {
-                        return <li key={topic[1][1]} className="hot-topic" onClick={() => { this.props.history.push(`/topics/${topic[1][1]}`) }}>{topic[0]}</li>
+                        return <li key={topic[1][1]} className="hot-topic" onClick={() => { this.props.history.push(`/topics/${topic[1][1]}`); window.location.reload(); }}>{topic[0]}</li>
                     })}
                 </div>
             </div>

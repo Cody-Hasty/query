@@ -35,18 +35,33 @@ class QuestionShow extends React.Component {
       )
     }
   }
+
+  displayQuestion() {
+    if(this.state.question.topic != undefined){
+      const question = this.state.question;
+      return (
+        <div className="show-box">
+          <p>Written in #
+          <strong className="topic-linker" onClick={() => this.props.history.push(`/topics/${question.topic.id}`)}>
+              {question.topic.name}
+            </strong> by <strong>
+              {question.author.fname} {question.author.lname}
+            </strong>
+          </p>
+          <h1>{question.title}</h1>
+          <hr/>
+          <p className="show-body">{question.body}</p>
+        </div>
+      )
+    }
+  }
   
   render() {
     return (
       <div className="show">
-        <div className="show-box">
-          <p>Writen in <strong>#{this.state.question.name}</strong> by <strong>{this.state.question.fname} {this.state.question.lname}</strong></p>
-          <h1>{this.state.question.title}</h1>
-          <hr/>
-          <p className="show-body">{this.state.question.body}</p>
-        </div>
+        {this.displayQuestion()}
         <div className="show-button-box">
-          <button onClick={() => this.props.history.push('/')} className="back-button"><RiArrowGoBackLine />Go Back</button>
+          <button onClick={() => { this.props.history.push('/')}} className="back-button"><RiArrowGoBackLine />Go Back</button>
           {this.crudOptions(this.state.question)}
         </div>
       </div>

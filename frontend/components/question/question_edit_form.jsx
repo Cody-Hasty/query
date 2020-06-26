@@ -5,7 +5,17 @@ class QuestionEditForm extends React.Component {
     constructor(props) {
         super(props);
         
-        this.state = null;
+        this.state = {
+            id: '',
+            title: '',
+            body: '',
+            topic_name: '',
+            topic_id: '',
+            author_id: '',
+            author_id: '',
+            topics: {},
+            topic_names_list: [],
+        }
         
         this.props.fetchQuestion({ id: this.props.questionId })
         .then((data) => {
@@ -13,7 +23,7 @@ class QuestionEditForm extends React.Component {
                 id: data.question.id,
                 title: data.question.title,
                 body: data.question.body,
-                topic_name: data.question.name,
+                topic_name: data.question.topic.name,
                 topic_id: data.question.topic_id,
                 author_id: data.question.author_id,
                 author_id: this.props.author_id,
@@ -44,8 +54,8 @@ class QuestionEditForm extends React.Component {
             Object.keys(data.topics).forEach(key => {
                 flipped[data.topics[key].name] = key;
             })
-            this.state.topics = flipped;
-            this.state.topic_names_list = Object.keys(flipped).sort();
+            this.setState({topics: flipped});
+            this.setState({topic_names_list: Object.keys(flipped).sort()});
         })
     }
 
@@ -57,10 +67,10 @@ class QuestionEditForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.state.topic_name = this.state.topic_name.toLowerCase();
+        this.setState({topic_name: this.state.topic_name.toLowerCase()})
         if (!(this.state.topic_name in this.state.topics)) {
             this.props.sendTopic({ name: this.state.topic_name }).then((data) => {
-                this.state.topic_id = data.topic.id;
+                this.setState({topic_id: data.topic.id});
                 this.makeTopicList();
                 this.submitHelper();
             }, (err) => { this.renderTopicErrors() })

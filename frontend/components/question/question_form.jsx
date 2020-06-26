@@ -7,7 +7,7 @@ class QuestionForm extends React.Component {
     this.state = {
       title: '',
       body: '',
-      topic_id: -1,
+      topic_id: '',
       topic_name: '',      
       author_id: this.props.author_id,
       topics: {},
@@ -18,6 +18,7 @@ class QuestionForm extends React.Component {
     this.renderTopicList = this.renderTopicList.bind(this);
     this.renderTopicErrors = this.renderTopicErrors.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.submitHelper = this.submitHelper.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
   }
   
@@ -36,8 +37,8 @@ class QuestionForm extends React.Component {
       Object.keys(data.topics).forEach(key => {
         flipped[data.topics[key].name] = key;
       })
-      this.state.topics = flipped;
-      this.state.topic_names_list = Object.keys(flipped).sort();
+      this.setState({topics: flipped});
+      this.setState({topic_names_list: Object.keys(flipped).sort()})
     })
   }
 
@@ -49,10 +50,10 @@ class QuestionForm extends React.Component {
   
   handleSubmit(e) {
     e.preventDefault();
-    this.state.topic_name = this.state.topic_name.toLowerCase();
-    if (!(this.state.topic_name in this.state.topics)) {
+    this.setState({topic_name: this.state.topic_name.toLowerCase()})
+    if (!(this.state.topic_name in this.state.topics)){
       this.props.sendTopic({name: this.state.topic_name}).then((data) => {
-        this.state.topic_id = data.topic.id;
+        this.setState({topic_id: data.topic.id});
         this.makeTopicList();
         this.submitHelper();
       }, (err) => {this.renderTopicErrors()})  

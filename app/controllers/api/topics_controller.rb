@@ -3,7 +3,7 @@ class Api::TopicsController < ApplicationController
         @topic = Topic.new(topic_params)
 
         if @topic.save
-            render "api/topics/create"
+            render "api/topics/show"
         else
             render json: @topic.errors.full_messages, status: 422
         end

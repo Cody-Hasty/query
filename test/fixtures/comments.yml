@@ -1,12 +1,12 @@
 # == Schema Information
 #
-# Table name: questions
+# Table name: comments
 #
 #  id         :bigint           not null, primary key
-#  title      :string           not null
 #  body       :text             not null
-#  topic_id   :integer          not null
+#  post_id    :integer          not null
 #  author_id  :integer          not null
+#  comment_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

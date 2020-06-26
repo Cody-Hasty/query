@@ -9,7 +9,7 @@ class QuestionIndex extends React.Component {
 
   handleDelete(question) {
     this.props.deleteQuestion(question).then(() => {
-      this.state.questions = this.props.getQuestions();
+      this.setState({questions: this.props.getQuestions()})
     })
   }
 

@@ -34,8 +34,8 @@ class SessionForm extends React.Component {
     
     handleDemoLogin(e) {
         e.preventDefault();
-        this.state.loginPassword = "123456"
-        this.state.loginEmail = "demo@demo.com"
+        this.setState({loginPassword: "123456"})
+        this.setState({loginEmail: "demo@demo.com"})
         this.props.login(this.state);
     }
     
