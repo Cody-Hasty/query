@@ -4,9 +4,8 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy]
     resources :users, only: [:create, :show]  
     resources :topics, only: [:create, :show, :index]
-    resources :questions do
-      resources :comments, except: [:show, :index]
-    end
+    resources :questions
+    resources :comments, except: [:show, :index]
   end
 
   root to: 'root#root'

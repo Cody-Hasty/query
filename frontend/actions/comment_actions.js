@@ -14,20 +14,21 @@ export const removeCommentErrors = () => ({
 
 export const createComment = (comment) => (dispatch) => (
     CommentAPIUtil.createComment(comment)
-    .catch((err) => (
+    .then(() => {}, (err) => (
         dispatch(receiveCommentErrors(err.responseJSON))
     ))
 )
 
 export const updateComment = comment => dispatch => (
     CommentAPIUtil.updateComment(comment)
-    .catch((err) => (
+    .then(() => {}, (err) => (
         dispatch(receiveCommentErrors(err.responseJSON))
     ))
 )
 
 export const deleteComment = comment => dispatch => (
     CommentAPIUtil.deleteComment(comment)
-    .catch((err) => (
+    .then(() => {}, (err) => (
         dispatch(receiveCommentErrors(err.responseJSON))
     ))
+)

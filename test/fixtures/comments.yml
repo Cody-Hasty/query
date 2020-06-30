@@ -4,9 +4,8 @@
 #
 #  id         :bigint           not null, primary key
 #  body       :text             not null
-#  post_id    :integer          not null
+#  question_id    :integer          not null
 #  author_id  :integer          not null
-#  comment_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

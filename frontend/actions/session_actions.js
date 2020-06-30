@@ -23,7 +23,6 @@ export const removeSessionErrors = () => ({
     type: REMOVE_SESSION_ERRORS,
 });
 
-// formUser is from the html (our code), dispatch is from middleware (not our code)
 export const createNewUser = formUser => dispatch => (
     postUser(formUser)
         .then((formUser) => (dispatch(receiveCurrentUser(formUser))),

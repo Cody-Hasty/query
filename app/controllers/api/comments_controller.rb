@@ -8,7 +8,7 @@ class Api::CommentsController < ApplicationController
     def create
         @comment = Comment.new(comment_params)
         if @comment.save
-            # render "api/comments/index"
+            render json: ["Success!"]
         else
             render json: @comment.errors.full_messages, status: 422
         end
@@ -17,7 +17,7 @@ class Api::CommentsController < ApplicationController
     def update
         @comment = Comment.find(params[:id])
         if @comment.update(comment_params)
-            # render "api/comments/index"
+            render json: ["Success!"]
         else
             render json: @comment.errors.full_messages, status: 422
         end
@@ -32,7 +32,7 @@ class Api::CommentsController < ApplicationController
     private
     
     def comment_params
-        params.require(:comment).permit(:body, :post_id, :author_id)
+        params.require(:comment).permit(:body, :question_id, :author_id)
     end
 
 end

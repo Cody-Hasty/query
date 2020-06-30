@@ -24,6 +24,12 @@ button:active {
     padding: 15px 15px 0px 15px;
 }
 
+.routes {
+    display: grid;
+    grid-template-rows: 90px auto auto auto 15px;
+    grid-template-columns: 275px auto;
+}
+
 @keyframes rainbow_animation {
     0%,
     100% {

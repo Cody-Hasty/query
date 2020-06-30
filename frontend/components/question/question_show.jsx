@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { RiArrowGoBackLine } from "react-icons/ri";
 
 class QuestionShow extends React.Component {
@@ -36,12 +35,34 @@ class QuestionShow extends React.Component {
     }
   }
 
+  handleCDelete(comment) {
+    this.props.deleteComment(comment).then(() => {
+      window.location.reload();
+    })
+  }
+
+  handleCEdit(comment) {
+    this.props.history.push(`/questions/${this.props.questionId}/comments/${comment.id}/edit`);
+  }
+
+  crudCOptions(comment) {
+    if (comment.author_id == currentUser.id) {
+      return (
+        <div className="crud-buttons">
+          <button className="edit-crud-button" onClick={() => this.handleCEdit(comment)}>Edit</button>
+          <button className="del-crud-button" onClick={() => this.handleCDelete(comment)}>Delete</button>
+        </div>
+      )
+    }
+  }
+
   displayQuestion() {
     if(this.state.question.topic != undefined){
       const question = this.state.question;
       return (
         <div className="show-box">
-          <p>Written in #
+          {this.crudOptions(this.state.question)}
+          <p className="show-info">Written in #
           <strong className="topic-linker" onClick={() => this.props.history.push(`/topics/${question.topic.id}`)}>
               {question.topic.name}
             </strong> by <strong>
@@ -55,15 +76,48 @@ class QuestionShow extends React.Component {
       )
     }
   }
+
+  displayComments() {
+    let comments = [];
+    if(this.state.question.comments != undefined){
+      comments = Object.values(this.state.question.comments).map((comment, i) => {
+        return ( 
+          <li key={i} className="comment-list-item">
+            <div className="comment-item">
+              {this.crudCOptions(comment)}
+              <p>
+                <strong>
+                  {comment.author.fname} {comment.author.lname}
+                </strong> | "{comment.author.credentials}"
+              </p>
+              <p>{comment.body}</p>
+            </div>
+            <hr/>
+          </li>
+        )
+      })
+    } else {
+      comments = (
+        <li key="404" className="comment-list-item">
+          <h5>There aren't any comments yet, be the first!</h5>
+        </li>
+      )
+    }
+    return (
+      <div className="comments-show">
+        <h3>Comments</h3>
+        <hr/>
+        {comments}
+      </div>
+    );
+  }
   
   render() {
     return (
       <div className="show">
         {this.displayQuestion()}
-        <div className="show-button-box">
-          <button onClick={() => { this.props.history.push('/')}} className="back-button"><RiArrowGoBackLine />Go Back</button>
-          {this.crudOptions(this.state.question)}
-        </div>
+        {this.displayComments()}
+        <button onClick={() => { this.props.history.push('/')}} className="back-button"><RiArrowGoBackLine />Go Back</button>
       </div>
     );
   }

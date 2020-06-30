@@ -7,15 +7,18 @@ class Sidebar extends React.Component {
             topics: {},
             topic_names_list: [],
         }
-        this.props.getTopics().then((data) => {
-            this.parseData(data);
+        this.props.getTopics().then(() => {
+            this.parseData(this.props.topics);
         })
+
+        this.parseData = this.parseData.bind(this);
+        this.reduceData = this.reduceData.bind(this);
     }
     
     parseData(data) {
         let flippedObj = {};
-        Object.keys(data.topics).forEach(key => {
-            flippedObj[data.topics[key].name] = [data.topics[key].questions, data.topics[key].id];
+        Object.keys(data).forEach(key => {
+            flippedObj[data[key].name] = [data[key].questions, data[key].id];
         })
         
         let flipped = [];

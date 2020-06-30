@@ -17,14 +17,12 @@ ActiveRecord::Schema.define(version: 2020_06_26_001234) do
 
   create_table "comments", force: :cascade do |t|
     t.text "body", null: false
-    t.integer "post_id", null: false
+    t.integer "question_id", null: false
     t.integer "author_id", null: false
-    t.integer "comment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_comments_on_author_id"
-    t.index ["comment_id"], name: "index_comments_on_comment_id"
-    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["question_id"], name: "index_comments_on_question_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -35,6 +33,7 @@ ActiveRecord::Schema.define(version: 2020_06_26_001234) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_questions_on_author_id"
+    t.index ["topic_id"], name: "index_questions_on_topic_id"
   end
 
   create_table "topics", force: :cascade do |t|

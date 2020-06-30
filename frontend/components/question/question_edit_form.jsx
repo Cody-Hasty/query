@@ -12,7 +12,6 @@ class QuestionEditForm extends React.Component {
             topic_name: '',
             topic_id: '',
             author_id: '',
-            author_id: '',
             topics: {},
             topic_names_list: [],
         }
@@ -26,7 +25,6 @@ class QuestionEditForm extends React.Component {
                 topic_name: data.question.topic.name,
                 topic_id: data.question.topic_id,
                 author_id: data.question.author_id,
-                author_id: this.props.author_id,
                 topics: {},
                 topic_names_list: [],
             });

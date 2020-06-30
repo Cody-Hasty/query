@@ -4,12 +4,15 @@ import QuestionIndexItem from './question_index_item';
 class QuestionIndex extends React.Component {  
   constructor(props){
     super(props);
-    this.state = this.props.getQuestions();
+    this.state = {}; 
+    this.props.getQuestions().then((q) => {
+      this.state = q;
+    });
   }
 
   handleDelete(question) {
     this.props.deleteQuestion(question).then(() => {
-      this.setState({questions: this.props.getQuestions()})
+      this.setState(this.props.getQuestions())
     })
   }
 
@@ -18,7 +21,7 @@ class QuestionIndex extends React.Component {
   }
 
   crudOptions(question) {
-    if (question.author_id == currentUser.id) {
+    if (question.author_id == this.props.currentUser.id) {
       return (
         <div className="crud-buttons">
           <button className="edit-crud-button" onClick={() => this.handleEdit(question)}>Edit</button>
@@ -34,8 +37,8 @@ class QuestionIndex extends React.Component {
       <div className="feed">
         {questions.reverse().map((question, i) => (
           <li key={i} className="question-list-item">
-            <QuestionIndexItem question={question} key={question.id} />
             {this.crudOptions(question)}
+            <QuestionIndexItem question={question} key={question.id} />
             <hr />
           </li>
         ))}

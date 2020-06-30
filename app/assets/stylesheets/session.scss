@@ -1,4 +1,5 @@
 .session-box {
+    grid-area: 1 / 1 / 4 / 3;
     position: relative;
     margin: auto;
     margin-top: 150px;
@@ -107,18 +108,15 @@ form {
 
 .fname, .lname {
     display: flex;
-    // flex-direction: row;
     width: 90px;
 }
 
 .fname {
-    // align-self: flex-start;
     justify-self: left;
     margin-right: 2px;
 }
 
 .lname {
-    // align-self: flex-end;
     justify-self: right;
     margin-left: 2px;
 }

@@ -1,6 +1,6 @@
-export const createQuestion = comment => (
+export const createComment = comment => (
     $.ajax({
-        url: `/api/questions/${comment.post_id}/comments`,
+        url: `/api/comments`,
         method: 'POST',
         data: {
             comment
@@ -8,9 +8,9 @@ export const createQuestion = comment => (
     })
 );
 
-export const updateQuestion = comment => (
+export const updateComment = comment => (
     $.ajax({
-        url: `/api/questions/${comment.post_id}/comments/${comment.id}`,
+        url: `/api/comments/${comment.id}`,
         method: 'PATCH',
         data: {
             comment
@@ -18,9 +18,9 @@ export const updateQuestion = comment => (
     })
 );
 
-export const deleteQuestion = comment => (
+export const deleteComment = comment => (
     $.ajax({
-        url: `/api/questions/${comment.post_id}/comments/${comment.id}`,
+        url: `/api/comments/${comment.id}`,
         method: 'DELETE',
     })
 );

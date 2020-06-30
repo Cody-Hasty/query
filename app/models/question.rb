@@ -21,6 +21,7 @@ class Question < ApplicationRecord
     class_name: :Topic
 
     has_many :comments,
-    class_name: :Comment
+    class_name: :Comment,
+    dependent: :destroy
 
 end

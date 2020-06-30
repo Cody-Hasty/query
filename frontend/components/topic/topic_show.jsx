@@ -51,12 +51,12 @@ class TopicShow extends React.Component {
                 <div className="feed">
                     {questions.reverse().map((question, i) => (
                         <li key={i} className="question-list-item">
+                            {this.crudOptions(question)}
                             <div className="question-header">
                                 <button onClick={() => { this.props.history.push(`/questions/${question.id}`); window.location.reload(); }}><h3>{question.title}</h3></button>
                                 <p>Written in <strong>#{this.state.topic.name}</strong> by <strong>{question.author.fname} {question.author.lname}</strong></p>
                                 <p>{question.body}</p>
                             </div>
-                            {this.crudOptions(question)}
                             <hr />
                         </li>
                     ))}
