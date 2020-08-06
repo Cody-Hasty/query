@@ -11,13 +11,12 @@
     height: 100%;
     width: 100%;
     display: grid;
-    grid-template-columns: 200px auto 250px;
+    grid-template-columns: 250px auto 250px;
     grid-template-rows: 50% 50%;
 }
 
 .navbar-website-title {
     text-align: left;
-    margin-right: 25px;
     margin-left: 20px;
     min-width: 175px;
 }
