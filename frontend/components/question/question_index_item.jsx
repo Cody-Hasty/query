@@ -9,7 +9,7 @@ class QuestionIndexItem extends React.Component {
     const question = this.props.question;
     return (
       <div className="question-header">
-        <button onClick={() => { this.props.history.push(`/questions/${question.id}`)}}><h3>{question.title}</h3></button>
+        <button className="question-button" onClick={() => { this.props.history.push(`/questions/${question.id}`)}}><h3>{question.title}</h3></button>
         <p>Written in #
           <strong className="topic-linker" onClick={() => this.props.history.push(`/topics/${question.topic.id}`)}>
             {question.topic.name}
