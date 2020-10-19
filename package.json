@@ -15,7 +15,7 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^4.1.0"
   },
   "main": "index.js",
   "engines": {
